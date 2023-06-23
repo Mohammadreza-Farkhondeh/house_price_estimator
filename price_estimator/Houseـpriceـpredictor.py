@@ -22,7 +22,7 @@ regr.fit (train_x, train_y)
 
 #prediction
 def predict_price (Room, parking ,Warehouse,Elevator,AvgPrice):
-    y_hat= regr.predict([[Room,Parking,Warehouse,Elevator,AvgPrice]])
+    y_hat= regr.predict([[Room,parking,Warehouse,Elevator,AvgPrice]])
     return(round(y_hat[0][0] / 1000000, 5))
 
     
