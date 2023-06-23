@@ -5,6 +5,7 @@ import numpy as np
 from sklearn import linear_model
 
 
+
 df = pd.read_csv('price-estimator/your_updated_file_name.csv')
 
 cdf = df[['Room','Parking','Warehouse','Elevator','Area_Price','AvgPrice']]
