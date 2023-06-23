@@ -19,12 +19,16 @@
             flex-basis: 50%;
             background-color: #ff9900;
             padding: 20px;
+            display: flex;
+            align-items: center;    
         }
 
         #result {
             flex-basis: 50%;
             background-color: #aa6800;
             padding: 20px;
+            display: flex;
+            align-items: center;
         }
 
         form {
@@ -77,8 +81,9 @@
         }
 
         #epp {
-            margin-top: 20px;
+            margin: auto;
             font-size: 20px;
+
         }
 
         #eps {
@@ -96,10 +101,12 @@
     </form>
 </section>
 <section id="result">
-    <p id="epp">estimated price : <span id="eps"></span></p>
-    <section id="form">
-        <p id="epp">estimated price : <span id="eps">{{ result }}</span></p>
-    </section>
+    {% if result %}
+    <p id="epp">estimated price : <span id="eps">{{ result }}</span></p>
+    {% else %}
+    <p id="epp">a website for estimating your house price, enjoy....</p>
+    {% endif %}
+</section>
 </div>
 {% comment %}
     {% block javascript %}

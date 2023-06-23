@@ -1,19 +1,17 @@
 from django import forms
-import os 
-import importlib
-# importlib.import_module("...price-estimator.")
-# from ...price-estimatr.
-neighborhoods = []
+from price_estimator.House_price_predictor import predict_price
+from price_estimator.clean_df import result
+
+neighborhoods = result
 
 class DataForm(forms.Form):
     location = forms.ChoiceField(required=True, choices=neighborhoods)
     rooms = forms.IntegerField(min_value=0, required=True)
-    parking = forms.BooleanField()
-    warehouse = forms.BooleanField()
-    elevator = forms.BooleanField()
+    parking = forms.BooleanField(required=False, initial=False)
+    warehouse = forms.BooleanField(required=False, initial=False)
+    elevator = forms.BooleanField(required=False, initial=False)
 
     def process_data(self, location, rooms, parking, warehouse, elevator):
-
-
-
-        return "1245 toman per square meter"
+        price = predict_price(rooms, int(parking), int(warehouse), int(elevator), float(location))
+        answer = str(f"{int(round(price*1000000, -4 )):,}") 
+        return answer
