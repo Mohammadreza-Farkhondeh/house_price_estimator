@@ -32,5 +32,5 @@ df =pd.read_csv('your_updated_file_name.csv')
 
 result = [(y, x) for x, y in zip(avg_prices_by_address['Address'], avg_prices_by_address['AvgPrice'])]
 
-print(result)
+# print(result)
 
