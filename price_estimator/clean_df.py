@@ -1,13 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import pylab as pl
-import numpy as np
-from sklearn import linear_model
 
 
 df = pd.read_csv('price-estimator/home_file.csv')
-
-
 
 df['Area'] = pd.to_numeric(df['Area'], errors='coerce')
 df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
@@ -34,7 +29,6 @@ df.to_csv('your_updated_file_name.csv', index=False)
 
 df =pd.read_csv('your_updated_file_name.csv')
 
-# print(((avg_prices_by_address)))
 
 result = [(y, x) for x, y in zip(avg_prices_by_address['Address'], avg_prices_by_address['AvgPrice'])]
 
