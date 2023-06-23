@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Estimator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        #form {
+            flex-basis: 50%;
+            background-color: #ff9900;
+            padding: 20px;
+        }
+
+        #result {
+            flex-basis: 50%;
+            background-color: #aa6800;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        form ul {
+            color: #dc3545;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        form ul li {
+            margin-bottom: 5px;
+        }
+
+        form label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        form input[type="number"] {
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        form input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        form input[type="submit"] {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #0069d9;
+        }
+
+        #epp {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        #eps {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <section id="form">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit">
+    </form>
+</section>
+<section id="result">
+    <p id="epp">estimated price : <span id="eps"></span></p>
+    <section id="form">
+        <p id="epp">estimated price : <span id="eps">{{ result }}</span></p>
+    </section>
+</div>
+{% comment %}
+    {% block javascript %}
+        <script>
+            $("#my-form").on("submit", function(e) {
+                e.preventDefault(); // prevent the default form submission behavior
+                $.ajax({
+                    url: "{% url 'ajax_form' %}", // get the URL of the view function
+                    type: "POST", // use the POST method
+                    data: {
+                        input_data: $("#input-data").val(), // get the input data from the form field
+                        csrfmiddlewaretoken: "{{ csrf_token }}", // get the csrf token
+                    },
+                    dataType: "json", // expect a JSON response from the server
+                    success: function(response) {
+                        $("#output").html(response.value); // display the value returned by the server
+                    },
+                    error: function(response) {
+                        $("#output").html(response.error); // display the error returned by the server
+                    }
+                });
+            });
+
+
+        function loadValue() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("price").innerHTML =
+                this.responseText;
+            }
+            xhttp.open("GET", "ajax_info.txt");
+            xhttp.send();
+            }
+        </script>
+    {% endblock %}
+{% endcomment %}
+</body>
+</html>
