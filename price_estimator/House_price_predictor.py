@@ -5,6 +5,7 @@ import numpy as np
 from sklearn import linear_model
 
 
+
 df = pd.read_csv('price-estimator/your_updated_file_name.csv')
 
 cdf = df[['Room','Parking','Warehouse','Elevator','Area_Price','AvgPrice']]
@@ -22,7 +23,7 @@ regr.fit (train_x, train_y)
 
 #prediction
 def predict_price (Room, parking ,Warehouse,Elevator,AvgPrice):
-    y_hat= regr.predict([[Room,Parking,Warehouse,Elevator,AvgPrice]])
+    y_hat= regr.predict([[Room,parking,Warehouse,Elevator,AvgPrice]])
     return(round(y_hat[0][0] / 1000000, 5))
 
     
